@@ -1,29 +1,24 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityCodeGen.Ast;
+﻿using UnityCodeGen.AbstractSyntaxTree;
 using UnityCodeGen.Builder;
+using NUnit.Framework;
 
 namespace UnityCodeGen.Test.Builder
 {
-    [TestClass]
+    [TestFixture]
     public class ClassBuilderTest
     {
-        [TestMethod]
+        [Test]
         public void ItBuildsWithCorrectIsPartial()
         {
             var builder = new ClassBuilder();
             builder.IsPartial(true);
 
-            var result = builder.Build();
+            var result = builder.Build<ClassNode>();
 
             Assert.AreEqual(true, result.IsPartial);
         }
 
-        [TestMethod]
+        [Test]
         public void ItBuildsWithCorrectName()
         {
             var builder = new ClassBuilder();
@@ -34,29 +29,29 @@ namespace UnityCodeGen.Test.Builder
             Assert.AreEqual("FooBar", result.Name);
         }
 
-        [TestMethod]
+        [Test]
         public void ItBuildsWithAProperty()
         {
             var builder = new ClassBuilder();
             builder.WithProperty();
 
-            var result = builder.Build();
+            var result = builder.Build<ClassNode>();
 
-            Assert.AreEqual(1, result.Properties.Length);
+            Assert.AreEqual(1, result.Members.Length);
         }
 
-        [TestMethod]
+        [Test]
         public void ItBuildsWithAMethod()
         {
             var builder = new ClassBuilder();
             builder.WithMethod();
 
-            var result = builder.Build();
+            var result = builder.Build<ClassNode>();
 
-            Assert.AreEqual(1, result.Methods.Length);
+            Assert.AreEqual(1, result.Members.Length);
         }
 
-        [TestMethod]
+        [Test]
         public void ItBuildsWithCorrectVisibility()
         {
             var builder = new ClassBuilder();

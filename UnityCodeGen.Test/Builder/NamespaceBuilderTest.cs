@@ -1,17 +1,12 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityCodeGen.Builder;
+﻿using UnityCodeGen.Builder;
+using NUnit.Framework;
 
 namespace UnityCodeGen.Test.Builder
 {
-    [TestClass]
+    [TestFixture]
     public class NamespaceBuilderTest
     {
-        [TestMethod]
+        [Test]
         public void ItBuildsWithCorrectName()
         {
             var builder = new NamespaceBuilder();
@@ -22,7 +17,7 @@ namespace UnityCodeGen.Test.Builder
             Assert.AreEqual("FooBar", result.Name);
         }
 
-        [TestMethod]
+        [Test]
         public void ItBuildsWithAClass()
         {
             var builder = new NamespaceBuilder();
@@ -30,7 +25,7 @@ namespace UnityCodeGen.Test.Builder
 
             var result = builder.Build();
 
-            Assert.AreEqual(1, result.Classes.Length);
+            Assert.AreEqual(1, result.Types.Length);
         }
     }
 }

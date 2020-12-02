@@ -1,13 +1,12 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using UnityCodeGen.Builder;
+﻿using UnityCodeGen.Builder;
+using NUnit.Framework;
 
 namespace UnityCodeGen.Test.Builder
 {
-    [TestClass]
+    [TestFixture]
     public class ParameterBuilderTest
     {
-        [TestMethod]
+        [Test]
         public void TestWithName()
         {
             var builder = new ParameterBuilder();
@@ -18,7 +17,7 @@ namespace UnityCodeGen.Test.Builder
             Assert.AreEqual("FooBar", result.Name);
         }
 
-        [TestMethod]
+        [Test]
         public void TestWIthType()
         {
             var builder = new ParameterBuilder();
@@ -26,7 +25,7 @@ namespace UnityCodeGen.Test.Builder
 
             var result = builder.Build();
 
-            Assert.AreEqual("FooBar", result.Type);
+            Assert.AreEqual("FooBar", result.Type.Name);
         }
     }
 }

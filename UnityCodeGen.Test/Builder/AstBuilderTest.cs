@@ -1,16 +1,15 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using UnityCodeGen.Builder;
 
 namespace UnityCodeGen.Test.Builder
 {
-    [TestClass]
+    [TestFixture]
     public class AstBuilderTest
     {
-        [TestMethod]
+        [Test]
         public void ItBuildsWithAUsing()
         {
-            var builder = new AstBuilder();
+            var builder = new AbstractSyntaxBuilder();
             builder.WithUsing();
 
             var result = builder.Build();
@@ -18,21 +17,21 @@ namespace UnityCodeGen.Test.Builder
             Assert.AreEqual(1, result.Usings.Length);
         }
 
-        [TestMethod]
+        [Test]
         public void ItBuildsWithAClass()
         {
-            var builder = new AstBuilder();
+            var builder = new AbstractSyntaxBuilder();
             builder.WithClass();
 
             var result = builder.Build();
 
-            Assert.AreEqual(1, result.Classes.Length);
+            Assert.AreEqual(1, result.Types.Length);
         }
 
-        [TestMethod]
+        [Test]
         public void ItBuildsWithANamespace()
         {
-            var builder = new AstBuilder();
+            var builder = new AbstractSyntaxBuilder();
             builder.WithNamespace();
 
             var result = builder.Build();

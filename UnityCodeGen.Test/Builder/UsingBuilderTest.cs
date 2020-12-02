@@ -1,21 +1,20 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using UnityCodeGen.Builder;
+﻿using UnityCodeGen.Builder;
+using NUnit.Framework;
 
 namespace UnityCodeGen.Test.Builder
 {
-    [TestClass]
+    [TestFixture]
     public class UsingBuilderTest
     {
-        [TestMethod]
+        [Test]
         public void ItBuildsWithCorrectNamespaceName()
         {
             var builder = new UsingBuilder();
-            builder.WithNamespaceName("FooBar");
+            builder.WithNamespace("FooBar");
 
             var result = builder.Build();
 
-            Assert.AreEqual("FooBar", result.NamespaceName);
+            Assert.AreEqual("FooBar", result.Namespace);
         }
     }
 }

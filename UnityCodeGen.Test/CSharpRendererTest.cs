@@ -1,24 +1,19 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityCodeGen.Ast;
+﻿using UnityCodeGen.AbstractSyntaxTree;
 using UnityCodeGen.Builder;
+using NUnit.Framework;
 
 namespace UnityCodeGen.Test
 {
-    [TestClass]
+    [TestFixture]
     public class CSharpRendererTest
     {
-        [TestMethod]
+        [Test]
         public void Test()
         {
-            var builder = new AstBuilder();
+            var builder = new AbstractSyntaxBuilder();
 
             builder.WithUsing()
-                .WithNamespaceName("System");
+                .WithNamespace("System");
 
             var namespaceBuilder = builder.WithNamespace()
                 .WithName("TestNamespace");
@@ -30,13 +25,13 @@ namespace UnityCodeGen.Test
 
             classBuilder.WithProperty()
                 .WithName("Foo")
-                .WithType("int")
+                .WithReturnType("int")
                 .WithVisibility(AccessType.Public)
                 .WithSetVisibility(AccessType.Public);
 
             classBuilder.WithProperty()
                 .WithName("Bar")
-                .WithType("int")
+                .WithReturnType("int")
                 .WithVisibility(AccessType.Public)
                 .WithSetVisibility(AccessType.Private);
 
@@ -49,7 +44,7 @@ namespace UnityCodeGen.Test
             classBuilder.WithField()
                 .WithName("BarFoo")
                 .WithVisibility(AccessType.Public)
-                .WithType("int");
+                .WithReturnType("int");
 
             var methodBuilder = classBuilder.WithMethod()
                 .WithVisibility(AccessType.Public)
@@ -79,7 +74,7 @@ namespace UnityCodeGen.Test
 
             structBuilder.WithField()
                 .WithName("Foo")
-                .WithType("int")
+                .WithReturnType("int")
                 .WithVisibility(AccessType.Public);
 
             var enumBuilder = namespaceBuilder.WithEnum()
@@ -100,13 +95,13 @@ namespace UnityCodeGen.Test
             System.IO.File.WriteAllText(location + ".result.cs", result);
         }
 
-        [TestMethod]
+        [Test]
         public void Test2()
         {
-            var builder = new AstBuilder();
+            var builder = new AbstractSyntaxBuilder();
 
             builder.WithUsing()
-                .WithNamespaceName("System");
+                .WithNamespace("System");
 
             var namespaceBuilder = builder.WithNamespace()
                 .WithName("TestNamespace");
@@ -118,7 +113,7 @@ namespace UnityCodeGen.Test
 
             var fooProperty = classBuilder.WithProperty()
                 .WithName("Foo")
-                .WithType("int")
+                .WithReturnType("int")
                 .WithVisibility(AccessType.Public)
                 .WithSetVisibility(AccessType.Public);
 
@@ -157,10 +152,10 @@ namespace UnityCodeGen.Test
             System.IO.File.WriteAllText(location + ".result2.cs", result);
         }
 
-        [TestMethod]
+        [Test]
         public void Test3()
         {
-            var builder = new AstBuilder();
+            var builder = new AbstractSyntaxBuilder();
             var classBuilder = builder.WithClass()
                 .WithName("Foo");
 
@@ -190,12 +185,12 @@ namespace UnityCodeGen.Test
                 .WithType("U");
 
             secondMethodBuilder.WithTypeConstraint()
-                .WithTypeParameterName("T")
-                .WithStructConstraint();
+                .WithName("T")
+                .WithBase(ConstraintBaseType.Struct);
 
             secondMethodBuilder.WithTypeConstraint()
-                .WithTypeParameterName("U")
-                .WithStructConstraint()
+                .WithName("U")
+                .WithBase(ConstraintBaseType.Struct)
                 .WithConstraint("IDisposable");
 
             var ast = builder.Build();

@@ -1,6 +1,6 @@
 # UnityCodeGen
 
-A code generation library for Unity3d.
+A code generation library for Unity. Based on [Vengarioth/UnityCodeGen](https://github.com/Vengarioth/UnityCodeGen)
 
 ## Example
 
@@ -91,37 +91,3 @@ namespace TestNamespace
 }
 
 ```
-
-## Bootstrapping & proof of concept
-
-The first goal is to generate this library's own _builders_ from it's _ast nodes_. After that i will mainly use it to generate de/serializers for networking protocols.
-
-## FAQ
-
-### I'm getting errors while using the dll
-
-The dll's are built against .NET 4.5 and thus require the currently experimental .NET upgrade in unity.
-
-### Concerning Roslyn
-
-While Roslyn fully implements a lot of components needed for code generation, namely a C# parser, AST and the visitor patterns over it, it cannot currently run within the unity editor (please open an issue if you found out a way). This would be fine if all you want is generating some extra code after parsing your existing source code, but cannot help you if you want to compile something like Unreal's blueprints from within the editor. It is also a pretty heavy dependency.
-
-### Concerning Protobuf
-
-If you are looking for a way to generate serialization code of your networking messages, this library is a great alternative to protobuf if those tradeoffs are what you looking for:
-
-#### Pro
-
-* Protobuf's de/serialization is _usually_ more CPU intensive as generating de/serializers.
-
-#### Con
-
-* Protobuf can handle compatibility across multiple versions.
-
-#### Neutral
-
-* Message binary size depends on the compression / tricks you implement yourself. Protobuf's VarInt encoding is great, but sometimes you want to pack things on a bit level.
-
-## Licence
-
-MIT, open an issue if you need it licenced under another one.

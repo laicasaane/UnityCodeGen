@@ -1,47 +1,46 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using UnityCodeGen.Ast;
+﻿using UnityCodeGen.AbstractSyntaxTree;
 using UnityCodeGen.Builder;
+using NUnit.Framework;
 
 namespace UnityCodeGen.Test.Builder
 {
-    [TestClass]
+    [TestFixture]
     public class MethodBuilderTest
     {
-        [TestMethod]
+        [Test]
         public void TestIsAbstract()
         {
             var builder = new MethodBuilder();
             builder.IsAbstract(true);
 
-            var result = builder.Build();
+            var result = builder.Build<MethodNode>();
 
             Assert.AreEqual(true, result.IsAbstract);
         }
 
-        [TestMethod]
+        [Test]
         public void TestIsStatic()
         {
             var builder = new MethodBuilder();
             builder.IsStatic(true);
 
-            var result = builder.Build();
+            var result = builder.Build<MethodNode>();
 
             Assert.AreEqual(true, result.IsStatic);
         }
 
-        [TestMethod]
+        [Test]
         public void TestIsVirtual()
         {
             var builder = new MethodBuilder();
             builder.IsVirtual(true);
 
-            var result = builder.Build();
+            var result = builder.Build<MethodNode>();
 
             Assert.AreEqual(true, result.IsVirtual);
         }
 
-        [TestMethod]
+        [Test]
         public void TestWithName()
         {
             var builder = new MethodBuilder();
@@ -52,7 +51,7 @@ namespace UnityCodeGen.Test.Builder
             Assert.AreEqual("FooBar", result.Name);
         }
 
-        [TestMethod]
+        [Test]
         public void TestWithReturnType()
         {
             var builder = new MethodBuilder();
@@ -60,10 +59,10 @@ namespace UnityCodeGen.Test.Builder
 
             var result = builder.Build();
 
-            Assert.AreEqual("FooBar", result.ReturnType);
+            Assert.AreEqual("FooBar", result.ReturnType.Name);
         }
 
-        [TestMethod]
+        [Test]
         public void TestWithVisibility()
         {
             var builder = new MethodBuilder();
@@ -74,13 +73,13 @@ namespace UnityCodeGen.Test.Builder
             Assert.AreEqual(AccessType.Internal, result.Visibility);
         }
 
-        [TestMethod]
+        [Test]
         public void TestWithParameter()
         {
             var builder = new MethodBuilder();
             builder.WithParameter();
 
-            var result = builder.Build();
+            var result = builder.Build<MethodNode>();
 
             Assert.AreEqual(1, result.Parameters.Length);
         }
